@@ -1,0 +1,58 @@
+.vp-container {
+    width: 100vw;
+    aspect-ratio: 16/9;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+
+    &__player {
+        width: 100%;
+        height: 100%;
+    }
+
+    &:not(:hover) &__controller {
+        display: none;        
+    }
+
+    &__controller {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        gap: 8px;
+        padding: 0.5rem;
+        background-color: #0002;
+
+        &__mic {
+            $this: &;
+            width: 200px;
+            background-color: blue;
+            color: white;
+
+            &--disabled {
+                @extend #{$this};
+                background-color: silver;
+                color: #333;
+            }
+        }
+
+        &__video {
+            $this: &;
+            width: 200px;
+            background-color: blue;
+
+            &--disabled {
+                @extend #{$this};
+                background-color: silver;
+                color: #333;
+            }
+        }
+
+        &__hang-up {
+            $this: &;
+            width: 200px;
+            background-color: red;
+        }
+    }
+}
