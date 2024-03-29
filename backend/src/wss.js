@@ -66,6 +66,16 @@ function onMessage(wss, socket, message) {
                 const userIds = Object.keys(channels[channelName])
                 if (userIds.length === 0) {
                     delete channels[channelName]
+                } else {
+                    userIds.forEach(id => {
+                        if (userId.toString() !== id.toString()) {
+                            const wsClient = channels[channelName][id]
+                            if (wsClient)
+                                send(wsClient, 'quit', id)
+                            else
+                                delete channels[channelName]
+                        }
+                    })
                 }
             }
             break;

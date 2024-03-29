@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import {
+  FaMicrophone,
+  FaMicrophoneSlash,
+  FaVideo,
+  FaVideoSlash
+} from 'react-icons/fa';
+import { PiPhoneSlashFill } from 'react-icons/pi';
 
 //styles
 import './index.scss';
@@ -10,44 +17,50 @@ const VideoPlayer = ({
   onCallEnd,
   onStateChange
 }) => {
-  const [enableCam, setEnableCam] = useState(true);
+  const [enableVideo, setEnableVideo] = useState(true);
   const [enableMic, setEnableMic] = useState(true);
 
   return (
     <div className={`vp-container ${className}`}>
-      <video className='vp-container__player' ref={innerRef} autoPlay />
+      <video
+        className='vp-container__player'
+        ref={innerRef}
+        autoPlay
+        muted={!!onStateChange}
+        playsInline
+      />
 
       {onStateChange && (
         <div className='vp-container__controller'>
-          <button
-            className={`vp-container__controller__mic${
-              enableMic ? '--disabled' : ''
-            }`}
+          <div
+            className='vp-container__controller__container--mic'
             onClick={() => {
               setEnableMic(!enableMic);
               onStateChange(false);
             }}
           >
-            Turn Mic {enableMic ? 'Off' : 'On'}
-          </button>
-          <button
-            className={`vp-container__controller__video${
-              enableCam ? '--disabled' : ''
-            }`}
+            {enableMic ? (
+              <FaMicrophone size={25} />
+            ) : (
+              <FaMicrophoneSlash size={25} />
+            )}
+          </div>
+          <div
+            className='vp-container__controller__container--video'
             onClick={() => {
-              setEnableCam(!enableCam);
+              setEnableVideo(!enableVideo);
               onStateChange(true);
             }}
           >
-            Turn Cam {enableCam ? 'Off' : 'On'}
-          </button>
+            {enableVideo ? <FaVideo size={25} /> : <FaVideoSlash size={25} />}
+          </div>
           {insideCall && (
-            <button
-              className='vp-container__controller__hang-up'
+            <div
+              className='vp-container__controller__container--call-end'
               onClick={onCallEnd}
             >
-              Hang Up
-            </button>
+              <PiPhoneSlashFill size={25} color='white' />
+            </div>
           )}
         </div>
       )}
