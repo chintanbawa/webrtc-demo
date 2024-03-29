@@ -61,4 +61,4 @@ This is a full-stack web application built using the (Express.js, React.js, Node
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](licence.md).
